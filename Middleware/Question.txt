@@ -7,3 +7,18 @@ Execute any code.
 Make changes to the request and the response objects.
 End the request-response cycle.
 Call the next middleware function in the stack.
+
+
+what do you mean by this line or point >
+Make changes to the request and the response objects.
+
+Ans:-
+ app.use((req,res,next)=>{
+    console.log(`middleware first -----`);
+    req.myUsername = 'Anas Shahab'  // Main this So if i declare value in any middleware so your are acess the 
+    // the value any where ---
+    next();
+})
+
+Another Question:- How use this method and what is the benifit of this 
+
