@@ -1,0 +1,12 @@
+// Versioning 
+// how to know the work version system in any server
+
+// eg:    4.18.2
+
+first digit -> 4
+second digit -> 18
+third digit -> 2
+
+third digit ->2:  minor update
+second digit -> recommended update not for specific
+first digit ->4 : it is the major update   

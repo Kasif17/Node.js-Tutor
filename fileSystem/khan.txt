@@ -1,0 +1,6 @@
+Hey VScode This my Node.js Practice Time
+function now() { [native code] } This new time
+1714070389206 This new time
+1714070430043 This new time
+4/26/2024, 12:13:47 AM This new time
+4/26/2024, 12:14:16 AM This new time

@@ -1,0 +1,9 @@
+* What is the middleware
+Ans:-  If client request to the server or function then before respone middleware is working on if request it   like hacker or other then middleware respone it as a middle;
+
+Middleware functions can perform the following tasks:
+
+Execute any code.
+Make changes to the request and the response objects.
+End the request-response cycle.
+Call the next middleware function in the stack.
