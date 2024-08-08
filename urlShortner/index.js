@@ -27,7 +27,7 @@ app.use("/user", userRouter)
 app.use('/', chechAuth, staticRoute);
 
 app.get("/url/:shortId", async (req, res) => {
-  const shortId = req.params.shortId;
+  const shortId = req.params.shortId; 
 
   try {
     const entry = await URL.findOneAndUpdate(

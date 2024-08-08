@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+</head>
+<body>
+    <h1>Chatting App</h1>
+    <input type="text" name="message" id="message" placeholder="Type something">
+    <button id="sendBtn" type="submit">Submit</button>
+    <div id="Allmessage"></div> <!-- Ensure id is correct -->
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        // Ensure script runs after DOM content is fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const socket = io();
+
+            // Select elements by their IDs
+            const sendBtn = document.getElementById('sendBtn');
+            const messageInput = document.getElementById('message');
+            const allMessage = document.getElementById('Allmessage'); // Ensure this id is correct
+
+            if (!sendBtn || !messageInput || !allMessage) {
+                console.error('One or more elements not found');
+                return;
+            }
+
+            // Listen for incoming messages
+            socket.on("message", (message) => {
+                const p = document.createElement('p');
+                p.innerText = message;
+                allMessage.appendChild(p); // Append the message
+            });
+
+            // Add click event listener to send button
+            sendBtn.addEventListener('click', () => {
+                const message = messageInput.value;
+                console.log(message);
+                socket.emit('user-message', message); // Send the message to the server
+            });
+        });
+    </script>
+</body>
+</html>

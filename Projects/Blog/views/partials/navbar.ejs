@@ -9,20 +9,26 @@
               <li class="nav-item">
                   <a class="nav-link active text-light" aria-current="page" href="#">Home</a>
               </li>
-              <li class="nav-item">
-                  <a class="nav-link text-light" href="#">Add Blog</a>
-              </li>
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Mohd Kasif Khan
-                  </a>
-                  <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Logout</a></li>
-                  </ul>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link disabled text-light" aria-disabled="true">Disabled</a>
-              </li>
+             <% if (typeof user !== 'undefined' && user) { %>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="/blog/add-new">Add Blog</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Mohd Kasif Khan
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/user/signout">Logout</a></li>
+                    </ul>
+                </li>
+             <% } else {%>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="/user/signup">Create Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="/user/signin">Signin</a>
+                </li>
+              <%}%>
           </ul>
           <form class="d-flex" role="search">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -30,4 +36,11 @@
           </form>
       </div>
   </div>
-</nav>
+</nav >
+<% if (typeof error !== 'undefined' && error) { %>
+    <div class="mt-4">
+        <div class="alert alert-danger" role="alert">
+            <%= error %> 
+        </div>
+    </div>
+<% } %>

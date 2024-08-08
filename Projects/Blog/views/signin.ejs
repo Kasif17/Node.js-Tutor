@@ -2,18 +2,12 @@
 <html lang="en">
 <head>
     <%- include('./partials/meta.ejs') %>
-    <title>SignUp</title>
+    <title>HomePage</title>
 </head>
 <body>
     <%- include('./partials/navbar.ejs') %>
-
     <div class="container mt-3">
-        <form action="/user/signup" method="post">
-            <div class="mb-3">
-                <label for="fullName" class="form-label">FullName</label>
-                <input type="text" class="form-control" id="fullName" aria-describedby="fullName" name="fullName">
-                <div id="emailHelp" class="form-text"></div>
-              </div>
+        <form action="/user/signin" method="post">
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Email address</label>
               <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
