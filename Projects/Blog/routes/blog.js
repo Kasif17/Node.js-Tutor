@@ -1,51 +1,47 @@
-const {Router} = require('express')
+const { Router } = require('express');
 const multer = require('multer');
-const path = require('path')
-const Blog = require('../models/blog')
+const path = require('path');
+const fs = require('fs');
+const Blog = require('../models/blog');
 const router = Router();
 
+// Ensure that the 'uploads' directory exists
+const uploadPath = path.join(__dirname, '../public/uploads');
+if (!fs.existsSync(uploadPath)) {
+    fs.mkdirSync(uploadPath, { recursive: true });
+}
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb){
-        const uploadPath = path.resolve('../public/uplaods');
-      return cb(null,uploadPath)
+    destination: function (req, file, cb) {
+        cb(null, uploadPath);
     },
-    filename: function (req, file, cb){
-      return cb(null, `${Date.now()}-${file.originalname}`)
+    filename: function (req, file, cb) {
+        cb(null, `${Date.now()}-${file.originalname}`);
     }
-})
+});
 
-const uplaod = multer({storage})
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         const uploadPath = path.join(__dirname, '../public/uplaods');
-//         cb(null, uploadPath);
-//     },
-//     filename: function (req, file, cb) {
-//       const fileName = `${Date.now()}-${file.originalname}`;
-//       cb(null,fileName);
-//     }
-//   })
-//   const upload = multer({ storage: storage })
+const upload = multer({ storage });
 
-router.get('/add-new',(req,res)=>{
-  
-    return res.render('addBlog',{
-        user:req.user
+router.get('/add-new', (req, res) => {
+    return res.render('addBlog', {
+        user: req.user
     });
-})
+});
 
-router.post('/', uplaod.single('coverImage'), async(req, res) => { 
-    
+router.post('/', upload.single('coverImage'), async (req, res) => {
+    if (!req.user) {
+        return res.status(401).send('Unauthorized: No user information found');
+    }
+
     try {
-        const {title,body} = req.body;
+        const { title, body } = req.body;
         const blog = await Blog.create({
             body,
             title,
             createBy: req.user._id,
-            coverImgURL:`/uploads/${req.user.filename}`
-        })
-        res.redirect('/');
+            coverImgURL: `/uploads/${req.file.filename}`
+        });
+        return res.redirect(`/blog/${blog._id}`);
     } catch (err) {
         if (err instanceof multer.MulterError) {
             console.error('Multer error:', err);
@@ -56,6 +52,5 @@ router.post('/', uplaod.single('coverImage'), async(req, res) => {
         }
     }
 });
-
 
 module.exports = router;

@@ -4,7 +4,7 @@ const secret = "$uper$superman@123456";
 
 async function createTokenforUser(user){
     const playload = {
-        _id : user._id,
+        _id : user._id, 
         email : user.email,
         profileImageURL:user.profileImageURL,
         role : user.role,
