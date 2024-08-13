@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/meta.ejs') %>
+    <title>Blog</title>
+</head>
+<body>
+    <%- include('./partials/navbar.ejs') %>
+      <div class="container mt-3">
+        <h2><%= blog.title %></h2>
+        <img src="<%= blog.coverImgURL %>" width="50%" >
+        <p>
+            <%= blog.body %>
+        </p>
+      </div>
+
+         <div class="container mt-4">
+          <img src="<%= blog.createBy.profileImageURL %>" width="50px" alt="User Profile Image">
+          <span><%= blog.createBy.fullName %></span>
+      </div>
+   
+     
+    <%- include('./partials/script.ejs') %>
+</body>
+</html>

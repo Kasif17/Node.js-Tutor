@@ -28,6 +28,28 @@ router.get('/add-new', (req, res) => {
     });
 });
 
+router.get('/:id', async(req,res)=>{
+    const blog = await Blog.findById(req.params.id).populate("createBy");
+    return res.render('Blog',{
+        user:req.user,
+        blog,
+    })
+})
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const blog = await Blog.findByIdAndDelete(req.params.id);
+        if (!blog) {
+            return res.status(404).render('Blog', { message: 'Blog post not found' });
+        }
+        return res.status(200).render('Blog', { message: 'Blog post deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting blog post:', error);
+        return res.status(500).render('Blog', { message: 'Internal server error' });
+    }
+});
+
+
 router.post('/', upload.single('coverImage'), async (req, res) => {
     if (!req.user) {
         return res.status(401).send('Unauthorized: No user information found');

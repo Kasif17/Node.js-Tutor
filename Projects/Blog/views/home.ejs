@@ -6,18 +6,38 @@
 </head>
 <body>
     <%- include('./partials/navbar.ejs') %>
-     <div class="container mt-3">
-        <% blogs.forEach(blog => { %>
-            <div class="card" style="width: 18rem;">
-                <img src="<%= blog.coverImgURL %>" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title"><%= blog.title %></h5>
-                  
-                  <a href="/blog/<%= blog._id %>" class="btn btn-primary">View</a>
+    <div class="container mt-3">
+        <div class="row">
+            <% blogs.forEach(blog => { %>
+                <div class="col-md-4">
+                    <div class="card mb-4" style="width: 100%;">
+                        <img src="<%= blog.coverImgURL %>" class="card-img-top" alt="<%= blog.title %>">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= blog.title %></h5>
+                            <p class="card-text"><%= blog.body.substring(0, 100) %>...</p>
+                            <a href="/blog/<%= blog._id %>" class="btn btn-primary">View</a>
+                            <a href="/blog/<%= blog._id %>/edit" class="btn btn-warning">Edit</a>
+                            <form action="/blog/<%= blog._id %>?_method=DELETE" method="POST" class="d-inline">
+                                <button  type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-              </div>
-        <% }) %>
-     </div>
+            <% }) %>
+        </div>
+    </div>
     <%- include('./partials/script.ejs') %>
+
+    <script>
+        function showPopup(message) {
+            if (message) {
+                alert(message);
+            }
+        }
+
+        <% if (typeof message !== 'undefined') { %>
+            showPopup('<%= message %>');
+        <% } %>
+    </script>
 </body>
 </html>
